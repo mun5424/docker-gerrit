@@ -11,6 +11,8 @@ RUN rpm -i https://gerritforge.com/gerritforge-repo-1-2.noarch.rpm
 RUN yum -y install java-1.8.0-openjdk
 RUN yum -y install gerrit-2.16.rc0-1  && rm -f /var/gerrit/logs/*
 
+COPY ./cookbook-plugin.jar /var/gerrit/plugins/cookbook-plugin.jar
+
 USER gerrit
 RUN java -jar /var/gerrit/bin/gerrit.war init --batch --install-all-plugins -d /var/gerrit
 RUN java -jar /var/gerrit/bin/gerrit.war reindex -d /var/gerrit
